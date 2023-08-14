@@ -1,21 +1,19 @@
 //
 //
 // MusicPlayer
-// ViewController.swift
+// PlayerViewController.swift
 // 
-// Created by Alexander Kist on 13.08.2023.
+// Created by Alexander Kist on 14.08.2023.
 //
 
 
 import UIKit
 
-class ViewController: UIViewController {
+class PlayerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
-
-
 }
-
