@@ -11,10 +11,6 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
-    private var searchField = SearchField()
-    private var songsTableView: UITableView!
-    private let viewModel = SearchViewModel()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -23,6 +19,19 @@ class SearchViewController: UIViewController {
         setupUI()
     }
     
+    //MARK: - Private properties
+    
+    private enum Constants{
+        static let viewHorizontalPadding: CGFloat = 16
+        static let searchFieldTopPadding: CGFloat = 10
+        static let songsTableViewTopPadding: CGFloat = 20
+    }
+    
+    private var searchField = SearchField()
+    private var songsTableView: UITableView!
+    private let viewModel = SearchViewModel()
+    
+    //MARK: - Private methods
     private func setupUI(){
         setupSearchField()
         setupTableView()
@@ -33,9 +42,9 @@ class SearchViewController: UIViewController {
         view.addSubview(searchField)
         searchField.delegate = self
         NSLayoutConstraint.activate([
-            searchField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            searchField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            searchField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16),
+            searchField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.searchFieldTopPadding),
+            searchField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.viewHorizontalPadding),
+            searchField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constants.viewHorizontalPadding),
         ])
         
     }
@@ -47,18 +56,19 @@ class SearchViewController: UIViewController {
         view.addSubview(songsTableView)
         
         NSLayoutConstraint.activate([
-            songsTableView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 20),
-            songsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            songsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            songsTableView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: Constants.songsTableViewTopPadding),
+            songsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.viewHorizontalPadding),
+            songsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.viewHorizontalPadding),
             songsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-
+        
         songsTableView.delegate = self
         songsTableView.dataSource = self
     }
     
 }
 
+//MARK: - Extensions
 extension SearchViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,7 +93,7 @@ extension SearchViewController: UITableViewDelegate{
         self.navigationController?.pushViewController(playerVC, animated: true)
     }
 }
-    
+
 extension SearchViewController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchField.resignFirstResponder()

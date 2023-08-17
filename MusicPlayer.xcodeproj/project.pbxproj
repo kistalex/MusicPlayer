@@ -78,7 +78,6 @@
 				463733CA2A89559E00156650 /* Resources */,
 				463733C72A89552F00156650 /* Services */,
 				463733D92A8E5EE700156650 /* Screens */,
-				463733D12A8A66E300156650 /* PlayerViewController.swift */,
 				463733CF2A89637F00156650 /* SearchField.swift */,
 				463733CD2A895F2300156650 /* SongCell.swift */,
 				463733C12A8954EE00156650 /* response.json */,
@@ -120,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				463733DB2A8E5F2000156650 /* Search */,
+				463733E02A8E6E7E00156650 /* Player */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -156,6 +156,30 @@
 				463733BF2A8954B400156650 /* SearchResult.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		463733E02A8E6E7E00156650 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				463733E12A8E6E9300156650 /* View */,
+				463733E22A8E6EA300156650 /* ViewModel */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		463733E12A8E6E9300156650 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				463733D12A8A66E300156650 /* PlayerViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		463733E22A8E6EA300156650 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

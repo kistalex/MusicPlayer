@@ -15,12 +15,15 @@ protocol SearchViewModelDelegate: AnyObject {
 }
 
 class SearchViewModel {
-    
-    var songsInfo: SearchResult?
-    weak var delegate: SearchViewModelDelegate?
+
+    //MARK: - Private properties
     private var apiManager = ApiManager()
     
+    //MARK: - Properties
+    var songsInfo: SearchResult?
+    weak var delegate: SearchViewModelDelegate?
     
+    //MARK: - Methods
     func fetchSongsFromApi(with text: String){
         apiManager.fetchDataFromAPI(with: text) { result in
             switch result {

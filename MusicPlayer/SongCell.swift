@@ -11,6 +11,8 @@ import UIKit
 
 class SongCell: UITableViewCell {
     
+    
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -30,6 +32,13 @@ class SongCell: UITableViewCell {
         artistNameLabel.text = song.artistName
     }
     
+    //MARK: - Private properties
+    
+    private enum Constants{
+        static let viewPadding: CGFloat = 10
+        static let songImageWidth: CGFloat = 50
+        static let settingsImageSize: CGFloat = 20
+    }
     private let networkService = NetworkService()
     
     private let songImageView: UIImageView = {
@@ -61,7 +70,8 @@ class SongCell: UITableViewCell {
     }()
     
     private var songInfoStack: UIStackView!
-        
+    
+    //MARK: - Private methods
     private func setupUI(){
         
         songInfoStack = UIStackView(arrangedSubviews: [songNameLabel, artistNameLabel])
@@ -75,20 +85,20 @@ class SongCell: UITableViewCell {
         contentView.addSubview(settingsImageView)
         
         NSLayoutConstraint.activate([
-            songImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            songImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            songImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            songImageView.widthAnchor.constraint(equalToConstant: 50),
+            songImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.viewPadding),
+            songImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.viewPadding),
+            songImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.viewPadding),
+            songImageView.widthAnchor.constraint(equalToConstant: Constants.songImageWidth),
             
-            songInfoStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            songInfoStack.leadingAnchor.constraint(equalTo: songImageView.trailingAnchor, constant: 10),
-            songInfoStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            songInfoStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.viewPadding),
+            songInfoStack.leadingAnchor.constraint(equalTo: songImageView.trailingAnchor, constant: Constants.viewPadding),
+            songInfoStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.viewPadding),
             
-            settingsImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            settingsImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.viewPadding),
             settingsImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            settingsImageView.leadingAnchor.constraint(equalTo: songInfoStack.trailingAnchor, constant: 10),
-            settingsImageView.widthAnchor.constraint(equalToConstant: 20),
-            settingsImageView.heightAnchor.constraint(equalToConstant: 20)
+            settingsImageView.leadingAnchor.constraint(equalTo: songInfoStack.trailingAnchor, constant: Constants.viewPadding),
+            settingsImageView.widthAnchor.constraint(equalToConstant: Constants.settingsImageSize),
+            settingsImageView.heightAnchor.constraint(equalToConstant: Constants.settingsImageSize)
         ])
     }
 }
