@@ -13,14 +13,13 @@ class SearchViewController: UIViewController {
     
     private var searchField = SearchField()
     private var songsTableView: UITableView!
-    private var dataService = DataService()
-    private var songInfo: Response?
-
+    private let viewModel = SearchViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Поиск"
-        fetchBannerData(forFileName: "response")
+        viewModel.delegate = self
         setupUI()
     }
     
@@ -29,72 +28,74 @@ class SearchViewController: UIViewController {
         setupTableView()
     }
     
-    private func fetchBannerData(forFileName fileName: String){
-        dataService.fetchBannerData(fromFileNamed: fileName) { [weak self] result  in
-            switch result{
-            case .success(let songInfo):
-                self?.songInfo = songInfo
-                
-            case .failure(let error):
-                print("Ошибка чтения json: \(error)")
-            }
-        }
-    }
-    
     private func setupSearchField(){
         searchField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchField)
-        
+        searchField.delegate = self
         NSLayoutConstraint.activate([
             searchField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             searchField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             searchField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16),
         ])
+        
     }
     
     private func setupTableView(){
-        songsTableView = UITableView(frame: view.bounds)
+        songsTableView = UITableView()
         songsTableView.register(SongCell.self, forCellReuseIdentifier: "\(SongCell.self)")
-        songsTableView.rowHeight = UITableView.automaticDimension
         songsTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(songsTableView)
         
         NSLayoutConstraint.activate([
-            songsTableView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 30),
+            songsTableView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 20),
             songsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            songsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16),
+            songsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             songsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        
-//        songsTableView.delegate = self
+
+        songsTableView.delegate = self
         songsTableView.dataSource = self
     }
     
 }
 
-
-
-
 extension SearchViewController: UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.songsInfo?.resultCount ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(SongCell.self)", for: indexPath) as? SongCell else {
             fatalError("TableView couldn't dequeue a SongCell")
         }
-        if let dataResult = songInfo?.results[indexPath.item]{
-            cell.configure(with: dataResult)
+        if let songs = viewModel.songsInfo?.results[indexPath.item]{
+            cell.configure(with: songs)
         }
         return cell
     }
 }
 
-//extension ViewController: UITableViewDelegate{
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
-//}
+extension SearchViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        songsTableView.deselectRow(at: indexPath, animated: true)
+        let playerVC = PlayerViewController()
+        self.navigationController?.pushViewController(playerVC, animated: true)
+    }
+}
     
+extension SearchViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchField.resignFirstResponder()
+        if let searchText = searchField.text, searchText.count >= 3 {
+            viewModel.fetchSongsFromApi(with: searchText)
+        }
+        return true
+    }
+}
+
+extension SearchViewController: SearchViewModelDelegate {
+    func dataDidLoad() {
+        self.songsTableView.reloadData()
+    }
+}

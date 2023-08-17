@@ -13,13 +13,15 @@
 		463733B32A89493300156650 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 463733B12A89493300156650 /* Main.storyboard */; };
 		463733B52A89493300156650 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 463733B42A89493300156650 /* Assets.xcassets */; };
 		463733B82A89493300156650 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 463733B62A89493300156650 /* LaunchScreen.storyboard */; };
-		463733C02A8954B400156650 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733BF2A8954B400156650 /* Response.swift */; };
+		463733C02A8954B400156650 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733BF2A8954B400156650 /* SearchResult.swift */; };
 		463733C22A8954EE00156650 /* response.json in Resources */ = {isa = PBXBuildFile; fileRef = 463733C12A8954EE00156650 /* response.json */; };
 		463733C42A89551D00156650 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733C32A89551D00156650 /* DataService.swift */; };
 		463733C62A89552900156650 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733C52A89552900156650 /* NetworkService.swift */; };
 		463733CE2A895F2300156650 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733CD2A895F2300156650 /* SongCell.swift */; };
 		463733D02A89637F00156650 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733CF2A89637F00156650 /* SearchField.swift */; };
 		463733D22A8A66E300156650 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733D12A8A66E300156650 /* PlayerViewController.swift */; };
+		463733D42A8A80CB00156650 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733D32A8A80CB00156650 /* ApiManager.swift */; };
+		463733D82A8E549F00156650 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733D72A8E549F00156650 /* SearchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,13 +33,15 @@
 		463733B42A89493300156650 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		463733B72A89493300156650 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		463733B92A89493300156650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		463733BF2A8954B400156650 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		463733BF2A8954B400156650 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		463733C12A8954EE00156650 /* response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response.json; sourceTree = "<group>"; };
 		463733C32A89551D00156650 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		463733C52A89552900156650 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		463733CD2A895F2300156650 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		463733CF2A89637F00156650 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		463733D12A8A66E300156650 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		463733D32A8A80CB00156650 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		463733D72A8E549F00156650 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,11 +77,10 @@
 				463733C82A89555700156650 /* Application */,
 				463733CA2A89559E00156650 /* Resources */,
 				463733C72A89552F00156650 /* Services */,
-				463733AF2A89493300156650 /* SearchViewController.swift */,
+				463733D92A8E5EE700156650 /* Screens */,
 				463733D12A8A66E300156650 /* PlayerViewController.swift */,
 				463733CF2A89637F00156650 /* SearchField.swift */,
 				463733CD2A895F2300156650 /* SongCell.swift */,
-				463733BF2A8954B400156650 /* Response.swift */,
 				463733C12A8954EE00156650 /* response.json */,
 			);
 			path = MusicPlayer;
@@ -88,6 +91,7 @@
 			children = (
 				463733C32A89551D00156650 /* DataService.swift */,
 				463733C52A89552900156650 /* NetworkService.swift */,
+				463733D32A8A80CB00156650 /* ApiManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -110,6 +114,48 @@
 				463733B92A89493300156650 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		463733D92A8E5EE700156650 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				463733DB2A8E5F2000156650 /* Search */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		463733DB2A8E5F2000156650 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				463733DF2A8E5F4B00156650 /* Model */,
+				463733DD2A8E5F3900156650 /* View */,
+				463733DE2A8E5F4000156650 /* ViewModel */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		463733DD2A8E5F3900156650 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				463733AF2A89493300156650 /* SearchViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		463733DE2A8E5F4000156650 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				463733D72A8E549F00156650 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		463733DF2A8E5F4B00156650 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				463733BF2A8954B400156650 /* SearchResult.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,8 +230,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				463733C02A8954B400156650 /* Response.swift in Sources */,
+				463733D82A8E549F00156650 /* SearchViewModel.swift in Sources */,
+				463733C02A8954B400156650 /* SearchResult.swift in Sources */,
 				463733B02A89493300156650 /* SearchViewController.swift in Sources */,
+				463733D42A8A80CB00156650 /* ApiManager.swift in Sources */,
 				463733AC2A89493300156650 /* AppDelegate.swift in Sources */,
 				463733CE2A895F2300156650 /* SongCell.swift in Sources */,
 				463733AE2A89493300156650 /* SceneDelegate.swift in Sources */,
