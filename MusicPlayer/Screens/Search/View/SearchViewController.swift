@@ -8,6 +8,7 @@
 
 
 import UIKit
+import SnapKit
 
 class SearchViewController: UIViewController {
     
@@ -28,7 +29,9 @@ class SearchViewController: UIViewController {
     }
     
     private var searchField = SearchField()
-    private var songsTableView: UITableView!
+    
+    private var songsTableView = UITableView()
+    
     private let viewModel = SearchViewModel()
     
     //MARK: - Private methods
@@ -38,39 +41,33 @@ class SearchViewController: UIViewController {
     }
     
     private func setupSearchField(){
-        searchField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchField)
         searchField.delegate = self
-        NSLayoutConstraint.activate([
-            searchField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.searchFieldTopPadding),
-            searchField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.viewHorizontalPadding),
-            searchField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constants.viewHorizontalPadding),
-        ])
-        
+        searchField.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(Constants.searchFieldTopPadding)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(Constants.viewHorizontalPadding)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-Constants.viewHorizontalPadding)
+        }
     }
     
     private func setupTableView(){
-        songsTableView = UITableView()
         songsTableView.register(SongCell.self, forCellReuseIdentifier: "\(SongCell.self)")
-        songsTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(songsTableView)
         
-        NSLayoutConstraint.activate([
-            songsTableView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: Constants.songsTableViewTopPadding),
-            songsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.viewHorizontalPadding),
-            songsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.viewHorizontalPadding),
-            songsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        songsTableView.snp.makeConstraints { make in
+            make.top.equalTo(searchField.snp.bottom).offset(Constants.songsTableViewTopPadding)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(Constants.viewHorizontalPadding)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-Constants.viewHorizontalPadding)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
         
         songsTableView.delegate = self
         songsTableView.dataSource = self
     }
-    
 }
 
 //MARK: - Extensions
 extension SearchViewController: UITableViewDataSource{
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.songsInfo?.resultCount ?? 0
     }

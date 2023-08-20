@@ -23,7 +23,7 @@ final class ApiManager {
                 completion(.failure(error))
                 return
             }
-        
+                
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))
