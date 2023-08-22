@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4628FA602A8FB3B400D581A9 /* Extension+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628FA5F2A8FB3B400D581A9 /* Extension+UIImageView.swift */; };
+		4628FA662A929F6400D581A9 /* Extension+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628FA652A929F6400D581A9 /* Extension+UIButton.swift */; };
+		4628FA752A95080F00D581A9 /* SongInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628FA742A95080F00D581A9 /* SongInfoStackView.swift */; };
+		4628FA772A95086800D581A9 /* SongSettingsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628FA762A95086800D581A9 /* SongSettingsStackView.swift */; };
+		4628FA792A9508C200D581A9 /* PlayerButtonsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628FA782A9508C200D581A9 /* PlayerButtonsStackView.swift */; };
 		463733AC2A89493300156650 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733AB2A89493300156650 /* AppDelegate.swift */; };
 		463733AE2A89493300156650 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733AD2A89493300156650 /* SceneDelegate.swift */; };
 		463733B02A89493300156650 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733AF2A89493300156650 /* SearchViewController.swift */; };
@@ -28,6 +32,10 @@
 
 /* Begin PBXFileReference section */
 		4628FA5F2A8FB3B400D581A9 /* Extension+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIImageView.swift"; sourceTree = "<group>"; };
+		4628FA652A929F6400D581A9 /* Extension+UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIButton.swift"; sourceTree = "<group>"; };
+		4628FA742A95080F00D581A9 /* SongInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfoStackView.swift; sourceTree = "<group>"; };
+		4628FA762A95086800D581A9 /* SongSettingsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSettingsStackView.swift; sourceTree = "<group>"; };
+		4628FA782A9508C200D581A9 /* PlayerButtonsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButtonsStackView.swift; sourceTree = "<group>"; };
 		463733A82A89493300156650 /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		463733AB2A89493300156650 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		463733AD2A89493300156650 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,8 +90,33 @@
 			isa = PBXGroup;
 			children = (
 				4628FA5F2A8FB3B400D581A9 /* Extension+UIImageView.swift */,
+				4628FA652A929F6400D581A9 /* Extension+UIButton.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		4628FA712A9507B800D581A9 /* SongInfoStack */ = {
+			isa = PBXGroup;
+			children = (
+				4628FA742A95080F00D581A9 /* SongInfoStackView.swift */,
+			);
+			path = SongInfoStack;
+			sourceTree = "<group>";
+		};
+		4628FA722A9507E500D581A9 /* SongSettingsStack */ = {
+			isa = PBXGroup;
+			children = (
+				4628FA762A95086800D581A9 /* SongSettingsStackView.swift */,
+			);
+			path = SongSettingsStack;
+			sourceTree = "<group>";
+		};
+		4628FA732A9507F400D581A9 /* PlayerButtonsStack */ = {
+			isa = PBXGroup;
+			children = (
+				4628FA782A9508C200D581A9 /* PlayerButtonsStackView.swift */,
+			);
+			path = PlayerButtonsStack;
 			sourceTree = "<group>";
 		};
 		4637339F2A89493300156650 = {
@@ -113,6 +146,7 @@
 				463733D92A8E5EE700156650 /* Screens */,
 				463733C72A89552F00156650 /* Services */,
 				463733C12A8954EE00156650 /* response.json */,
+				463733C32A89551D00156650 /* DataService.swift */,
 			);
 			path = MusicPlayer;
 			sourceTree = "<group>";
@@ -120,7 +154,6 @@
 		463733C72A89552F00156650 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				463733C32A89551D00156650 /* DataService.swift */,
 				463733C52A89552900156650 /* NetworkService.swift */,
 				463733D32A8A80CB00156650 /* ApiManager.swift */,
 			);
@@ -204,6 +237,9 @@
 		463733E12A8E6E9300156650 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4628FA732A9507F400D581A9 /* PlayerButtonsStack */,
+				4628FA722A9507E500D581A9 /* SongSettingsStack */,
+				4628FA712A9507B800D581A9 /* SongInfoStack */,
 				463733D12A8A66E300156650 /* PlayerViewController.swift */,
 			);
 			path = View;
@@ -350,8 +386,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				463733D82A8E549F00156650 /* SearchViewModel.swift in Sources */,
+				4628FA772A95086800D581A9 /* SongSettingsStackView.swift in Sources */,
 				463733C02A8954B400156650 /* SearchResult.swift in Sources */,
 				463733B02A89493300156650 /* SearchViewController.swift in Sources */,
+				4628FA792A9508C200D581A9 /* PlayerButtonsStackView.swift in Sources */,
 				4628FA602A8FB3B400D581A9 /* Extension+UIImageView.swift in Sources */,
 				463733D42A8A80CB00156650 /* ApiManager.swift in Sources */,
 				463733AC2A89493300156650 /* AppDelegate.swift in Sources */,
@@ -360,6 +398,8 @@
 				463733D22A8A66E300156650 /* PlayerViewController.swift in Sources */,
 				463733C62A89552900156650 /* NetworkService.swift in Sources */,
 				463733D02A89637F00156650 /* SearchField.swift in Sources */,
+				4628FA662A929F6400D581A9 /* Extension+UIButton.swift in Sources */,
+				4628FA752A95080F00D581A9 /* SongInfoStackView.swift in Sources */,
 				463733C42A89551D00156650 /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

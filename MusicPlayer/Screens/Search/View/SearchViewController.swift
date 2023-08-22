@@ -15,8 +15,8 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Поиск"
         viewModel.delegate = self
+        title = ""
         setupUI()
     }
     
@@ -87,6 +87,9 @@ extension SearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         songsTableView.deselectRow(at: indexPath, animated: true)
         let playerVC = PlayerViewController()
+        if let songs = viewModel.songsInfo?.results[indexPath.item]{
+            playerVC.configure(with: songs)
+        }
         self.navigationController?.pushViewController(playerVC, animated: true)
     }
 }
