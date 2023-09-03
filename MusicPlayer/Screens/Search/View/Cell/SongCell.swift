@@ -9,6 +9,8 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
+
 
 final class SongCell: UITableViewCell {
     
@@ -21,15 +23,12 @@ final class SongCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    func configure(with song: SongInfo) {
-        networkService.loadImageFromURL(urlAddress: song.artworkUrl100) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.songImageView.image = image
-            }
-        }
-        songNameLabel.text = song.trackName
-        artistNameLabel.text = song.artistName
+    func configure(viewModel: SongCellViewModel) {
+        self.artistNameLabel.text = viewModel.artistName
+        self.songNameLabel.text = viewModel.trackName
+        self.songImageView.sd_setImage(with: viewModel.trackCover)
     }
+
     
     //MARK: - Private properties
     private enum Constants{

@@ -10,15 +10,20 @@
 import UIKit
 import SnapKit
 
-class SearchViewController: UIViewController {
+
+
+
+final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        viewModel.delegate = self
+//        viewModel.delegate = self
         title = ""
         setupUI()
+        bindViewModel()
     }
+    
     
     //MARK: - Private properties
     
@@ -31,6 +36,8 @@ class SearchViewController: UIViewController {
     private var searchField = SearchField()
     
     private var songsTableView = UITableView()
+    private var activityIndicator = UIActivityIndicatorView()
+    private var songCellDataSource: [SongCellViewModel] = []
     
     private let viewModel = SearchViewModel()
     
@@ -58,39 +65,86 @@ class SearchViewController: UIViewController {
             make.top.equalTo(searchField.snp.bottom).offset(Constants.songsTableViewTopPadding)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(Constants.viewHorizontalPadding)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-Constants.viewHorizontalPadding)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
         }
-        
         songsTableView.delegate = self
         songsTableView.dataSource = self
+    }
+    
+    private func bindViewModel(){
+//        viewModel.isLoading.bind { [weak self] isLoading  in
+//            guard let self = self, let isLoading = isLoading else {
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                if isLoading{
+//                    self.activityIndicator.startAnimating()
+//                }else{
+//                    self.activityIndicator.stopAnimating()
+//                }
+//            }
+//        }
+        viewModel.songs.bind { [weak self] songs  in
+            guard let self = self, let songs = songs else {
+                return
+            }
+            self.songCellDataSource = songs
+            self.reloadTableView()
+        }
+    }
+    
+//    private func openPlayer(songId: Int){
+//        guard let song = viewModel.retrieveSong(withId: songId) else {
+//            return
+//        }
+//        let playerViewModel = PlayerViewModel(song: song)
+//        let playerViewController = PlayerViewController(viewModel: playerViewModel)
+//        DispatchQueue.main.async {
+//            self.navigationController?.pushViewController(playerViewController, animated: true)
+//        }
+//    }
+    
+    private func openPlayer(songId: Int){
+        guard let songs = viewModel.retrieveSongs() else {
+            return
+        }
+        let playerViewModel = PlayerViewModel(songs: songs)
+        let playerViewController = PlayerViewController(viewModel: playerViewModel)
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(playerViewController, animated: true)
+        }
     }
 }
 
 //MARK: - Extensions
 extension SearchViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.songsInfo?.resultCount ?? 0
+        return viewModel.numberOrRows()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(SongCell.self)", for: indexPath) as? SongCell else {
-            fatalError("TableView couldn't dequeue a SongCell")
+            return UITableViewCell()
         }
-        if let songs = viewModel.songsInfo?.results[indexPath.item]{
-            cell.configure(with: songs)
-        }
+        cell.configure(viewModel: songCellDataSource[indexPath.row])
+        cell.selectionStyle = .none
         return cell
     }
+    
+    func reloadTableView(){
+        DispatchQueue.main.async {
+            self.songsTableView.reloadData()
+        }
+    }
 }
+
 
 extension SearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         songsTableView.deselectRow(at: indexPath, animated: true)
-        let playerVC = PlayerViewController()
-        if let songs = viewModel.songsInfo?.results[indexPath.item]{
-            playerVC.configure(with: songs)
-        }
-        self.navigationController?.pushViewController(playerVC, animated: true)
+        let songId = songCellDataSource[indexPath.row].id
+        self.openPlayer(songId: songId)
+        
     }
 }
 
@@ -101,11 +155,5 @@ extension SearchViewController: UITextFieldDelegate{
             viewModel.fetchSongsFromApi(with: searchText)
         }
         return true
-    }
-}
-
-extension SearchViewController: SearchViewModelDelegate {
-    func dataDidLoad() {
-        self.songsTableView.reloadData()
     }
 }

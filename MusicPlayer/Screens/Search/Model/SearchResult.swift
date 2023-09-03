@@ -16,11 +16,13 @@ struct SearchResult: Codable {
 
 
 struct SongInfo: Codable {
+    let trackID: Int
     let artistName, trackName: String
     let previewURL: String
     let artworkUrl100: String
 
     enum CodingKeys: String, CodingKey {
+        case trackID = "trackId"
         case artistName = "artistName"
         case trackName = "trackName"
         case previewURL = "previewUrl"

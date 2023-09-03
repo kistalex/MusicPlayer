@@ -9,30 +9,31 @@
 
 import Foundation
 
+enum NetworkError: Error{
+    case urlError
+    case noDataReceived
+    case canNotParseData
+
+}
+
 final class ApiManager {
     
-    func fetchDataFromAPI(with searchTerm: String, completion: @escaping (Result<SearchResult, Error>) -> Void) {
+    func fetchDataFromAPI(with searchTerm: String, completion: @escaping (Result<SearchResult, NetworkError>) -> Void) {
             var components = URLComponents(string: "https://itunes.apple.com/search")
             components?.queryItems = [
                 URLQueryItem(name: "term", value: searchTerm),
-                URLQueryItem(name: "entity", value: "musicTrack")
+                URLQueryItem(name: "entity", value: "musicTrack"),
+                URLQueryItem(name: "sort", value: "recent")
             ]
-            
+                    
             guard let url = components?.url else {
-                let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
-                completion(.failure(error))
+                completion(Result.failure(.urlError))
                 return
             }
                 
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
             guard let data = data else {
-                let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])
-                completion(.failure(error))
+                completion(Result.failure(.noDataReceived))
                 return
             }
             
@@ -41,10 +42,9 @@ final class ApiManager {
                 let responseData = try decoder.decode(SearchResult.self, from: data)
                 completion(.success(responseData))
             } catch {
-                completion(.failure(error))
+                completion(Result.failure(.canNotParseData))
             }
         }
-        
         task.resume()
     }
 }

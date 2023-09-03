@@ -9,10 +9,7 @@
 
 import UIKit
 
-
 class NetworkService {
-    
-    
     func loadImageFromURL(urlAddress: String, completion: @escaping (UIImage) -> Void) {
         guard let url = URL(string: urlAddress) else {
             if let defaultImage = UIImage(systemName: "eye.slash.circle") {
@@ -47,8 +44,9 @@ class NetworkService {
             }
             
             completion(loadedImage)
+            
         }
         task.resume()
     }
-}
 
+}
