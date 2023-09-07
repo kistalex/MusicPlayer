@@ -104,11 +104,11 @@ final class SearchViewController: UIViewController {
 //        }
 //    }
     
-    private func openPlayer(songId: Int){
+    private func openPlayer(songId: Int, currentIndex: Int){
         guard let songs = viewModel.retrieveSongs() else {
             return
         }
-        let playerViewModel = PlayerViewModel(songs: songs)
+        let playerViewModel = PlayerViewModel(songs: songs, startIndex: currentIndex)
         let playerViewController = PlayerViewController(viewModel: playerViewModel)
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(playerViewController, animated: true)
@@ -143,7 +143,7 @@ extension SearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         songsTableView.deselectRow(at: indexPath, animated: true)
         let songId = songCellDataSource[indexPath.row].id
-        self.openPlayer(songId: songId)
+        self.openPlayer(songId: songId, currentIndex: indexPath.row)
         
     }
 }

@@ -13,13 +13,21 @@ import SnapKit
 //    func 
 //}
 
+//метод для обновления UI
+//VC->VM->SIV нажали на кнопку
+//VC<-VM 3 параметра
+
 class SongInfoView: UIView {
     
     private let stackView = UIStackView()
-//    private let songNameLabel = UILabel()
-//    private let artistNameLabel = UILabel()
-    var songNameLabel = UILabel()
-    var artistNameLabel = UILabel()
+    private let songNameLabel = UILabel()
+    private let artistNameLabel = UILabel()
+    
+    var viewModel: PlayerViewModel?{
+        didSet{
+            updateUI()
+        }
+    }
     
     init() {
         super.init(frame: .zero)
@@ -44,6 +52,14 @@ class SongInfoView: UIView {
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    private func updateUI(){
+        guard let viewModel = viewModel else {
+            return
+        }
+        songNameLabel.text = viewModel.trackName
+        artistNameLabel.text = viewModel.artistName
     }
     
     private func configureLabels() {

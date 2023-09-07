@@ -22,8 +22,7 @@ final class ApiManager {
             var components = URLComponents(string: "https://itunes.apple.com/search")
             components?.queryItems = [
                 URLQueryItem(name: "term", value: searchTerm),
-                URLQueryItem(name: "entity", value: "musicTrack"),
-                URLQueryItem(name: "sort", value: "recent")
+                URLQueryItem(name: "entity", value: "song")
             ]
                     
             guard let url = components?.url else {

@@ -42,6 +42,7 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 0.6698819399, blue: 0.6376078725, alpha: 1)
         setupUI()
+        viewModel.delegate = self
         configureUI()
     }
     
@@ -57,10 +58,9 @@ class PlayerViewController: UIViewController {
         return .portrait
     }
     
-    func configureUI(){
-        songInfoView.artistNameLabel.text = viewModel.artistName
-        songInfoView.songNameLabel.text = viewModel.trackName
+    private func configureUI(){
         coverImageView.sd_setImage(with: viewModel.trackCover)
+        songInfoView.viewModel = viewModel
     }
     private func setupUI(){
         setupCoverImageView()
@@ -102,6 +102,7 @@ class PlayerViewController: UIViewController {
     
     private func setupSongInfoView() {
         view.addSubview(songInfoView)
+        songInfoView.viewModel = viewModel
         
         songInfoView.snp.makeConstraints { make in
             make.top.equalTo(coverImageView.snp.bottom).offset(20)
@@ -131,12 +132,13 @@ class PlayerViewController: UIViewController {
     }
     
     private func setupButtonAction(){
+        
         playerButtonsView.backButtonAction = { [weak self] in
             self?.viewModel.playPreviousSong()
         }
         
         playerButtonsView.playButtonAction = { [weak self] in
-            self?.viewModel.playSong()
+            self?.viewModel.playSong(at: self?.viewModel.id ?? 0)
         }
         playerButtonsView.forwardButtonAction = { [weak self] in
             self?.viewModel.playNextSong()
@@ -145,3 +147,8 @@ class PlayerViewController: UIViewController {
 }
 
 
+extension PlayerViewController: PlayerViewModelDelegate{
+    func trackDidUpdate(_ viewModel: PlayerViewModel, track: SongInfo) {
+        configureUI()
+    }
+}

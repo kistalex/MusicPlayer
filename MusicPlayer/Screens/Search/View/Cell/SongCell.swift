@@ -45,7 +45,7 @@ final class SongCell: UITableViewCell {
     
     private let artistNameLabel = UILabel()
     
-    private let settingsImageView = UIImageView(image: UIImage(systemName: "ellipsis"), contentMode: .scaleAspectFit)
+    private let settingsImageView = UIImageView(image: UIImage(systemName: "ellipsis"), contentMode: .scaleAspectFit, tintColor: .black)
     
     private var songInfoStack: UIStackView!
     

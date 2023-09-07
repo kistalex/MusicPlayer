@@ -10,10 +10,11 @@
 import UIKit
 
 extension UIImageView {
-    convenience init(image: UIImage? = nil, contentMode: UIView.ContentMode) {
+    convenience init(image: UIImage? = nil, contentMode: UIView.ContentMode, tintColor: UIColor? = nil) {
         self.init()
         self.image = image
         self.contentMode = contentMode
+        self.tintColor = tintColor
     }
 }
 
