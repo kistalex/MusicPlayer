@@ -2,7 +2,7 @@
 //
 // MusicPlayer
 // ViewController.swift
-// 
+//
 // Created by Alexander Kist on 13.08.2023.
 //
 
@@ -10,20 +10,15 @@
 import UIKit
 import SnapKit
 
-
-
-
 final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-//        viewModel.delegate = self
         title = ""
         setupUI()
         bindViewModel()
     }
-    
     
     //MARK: - Private properties
     
@@ -72,18 +67,7 @@ final class SearchViewController: UIViewController {
     }
     
     private func bindViewModel(){
-//        viewModel.isLoading.bind { [weak self] isLoading  in
-//            guard let self = self, let isLoading = isLoading else {
-//                return
-//            }
-//            DispatchQueue.main.async {
-//                if isLoading{
-//                    self.activityIndicator.startAnimating()
-//                }else{
-//                    self.activityIndicator.stopAnimating()
-//                }
-//            }
-//        }
+
         viewModel.songs.bind { [weak self] songs  in
             guard let self = self, let songs = songs else {
                 return
@@ -93,26 +77,15 @@ final class SearchViewController: UIViewController {
         }
     }
     
-//    private func openPlayer(songId: Int){
-//        guard let song = viewModel.retrieveSong(withId: songId) else {
-//            return
-//        }
-//        let playerViewModel = PlayerViewModel(song: song)
-//        let playerViewController = PlayerViewController(viewModel: playerViewModel)
-//        DispatchQueue.main.async {
-//            self.navigationController?.pushViewController(playerViewController, animated: true)
-//        }
-//    }
-    
     private func openPlayer(songId: Int, currentIndex: Int){
         guard let songs = viewModel.retrieveSongs() else {
             return
         }
         let playerViewModel = PlayerViewModel(songs: songs, startIndex: currentIndex)
         let playerViewController = PlayerViewController(viewModel: playerViewModel)
-        DispatchQueue.main.async {
+        
             self.navigationController?.pushViewController(playerViewController, animated: true)
-        }
+        
     }
 }
 

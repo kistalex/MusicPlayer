@@ -1,3 +1,5 @@
+
+
 //
 //
 // MusicPlayer
@@ -8,14 +10,6 @@
 
 import UIKit
 import SnapKit
-
-//protocol SongInfoStackViewDelegate: AnyObject{
-//    func 
-//}
-
-//метод для обновления UI
-//VC->VM->SIV нажали на кнопку
-//VC<-VM 3 параметра
 
 class SongInfoView: UIView {
     
@@ -28,6 +22,7 @@ class SongInfoView: UIView {
             updateUI()
         }
     }
+    
     
     init() {
         super.init(frame: .zero)
@@ -66,11 +61,10 @@ class SongInfoView: UIView {
         artistNameLabel.textColor = .white
         songNameLabel.textColor = .white
         
-        artistNameLabel.alpha = 0.7        
+        artistNameLabel.alpha = 0.7
         songNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         
         stackView.addArrangedSubview(songNameLabel)
         stackView.addArrangedSubview(artistNameLabel)
     }
 }
-

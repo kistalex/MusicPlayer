@@ -2,7 +2,7 @@
 //
 // MusicPlayer
 // PlayerViewController.swift
-// 
+//
 // Created by Alexander Kist on 14.08.2023.
 //
 
@@ -14,7 +14,7 @@ import SDWebImage
 class PlayerViewController: UIViewController {
     
     
-    //MARK: - Properties
+    //MARK: - Private properties
     private let coverImageView = UIImageView()
     
     private var timelineSlider = UISlider()
@@ -26,6 +26,10 @@ class PlayerViewController: UIViewController {
     private var playerButtonsView = PlayerButtonsView()
     
     private let viewModel: PlayerViewModel
+    
+    private enum Constants {
+        static let backgroundColor = UIColor(named: "playerBgColor")
+    }
     
     init(viewModel: PlayerViewModel) {
         self.viewModel = viewModel
@@ -40,17 +44,19 @@ class PlayerViewController: UIViewController {
     //MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1, green: 0.6698819399, blue: 0.6376078725, alpha: 1)
+        view.backgroundColor = Constants.backgroundColor
         setupUI()
         viewModel.delegate = self
         configureUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setupButtonAction()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         viewModel.stopMusic()
     }
     
@@ -68,21 +74,7 @@ class PlayerViewController: UIViewController {
         setupSongSettingsView()
         setupTimelineSlider()
         setupPlayerButtonsView()
-    }
-    
-    private func setupTimelineSlider(){
-        timelineSlider.minimumValue = 0
-        timelineSlider.maximumValue = 100
-        timelineSlider.tintColor = .white
-        
-        view.addSubview(timelineSlider)
-        
-        timelineSlider.snp.makeConstraints { make in
-            make.top.equalTo(songInfoView.snp.bottom)
-                .offset(30)
-            make.leading.equalTo(songInfoView.snp.leading)
-            make.trailing.equalTo(songSettingsView.snp.trailing)
-        }
+        setupViewModel()
     }
     
     private func setupCoverImageView(){
@@ -96,7 +88,6 @@ class PlayerViewController: UIViewController {
                 .offset(-100)
             make.width.equalToSuperview().multipliedBy(0.85)
             make.height.equalTo(coverImageView.snp.width)
-            
         }
     }
     
@@ -118,8 +109,27 @@ class PlayerViewController: UIViewController {
             make.leading.equalTo(songInfoView.snp.trailing).offset(20)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
         }
+    }
+    
+    private func setupTimelineSlider(){
+        timelineSlider.minimumValue = 0
+        timelineSlider.maximumValue = 100
+        timelineSlider.tintColor = .white
         
+        view.addSubview(timelineSlider)
         
+        timelineSlider.snp.makeConstraints { make in
+            make.top.equalTo(songInfoView.snp.bottom)
+                .offset(30)
+            make.leading.equalTo(songInfoView.snp.leading)
+            make.trailing.equalTo(songSettingsView.snp.trailing)
+        }
+        
+        timelineSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+    }
+    
+    @objc func sliderValueChanged() {
+        viewModel.seek(to: timelineSlider.value)
     }
     
     private func setupPlayerButtonsView() {
@@ -132,17 +142,51 @@ class PlayerViewController: UIViewController {
     }
     
     private func setupButtonAction(){
-        
         playerButtonsView.backButtonAction = { [weak self] in
             self?.viewModel.playPreviousSong()
         }
         
         playerButtonsView.playButtonAction = { [weak self] in
-            self?.viewModel.playSong(at: self?.viewModel.id ?? 0)
+            self?.viewModel.playSong(at: self?.viewModel.id)
         }
         playerButtonsView.forwardButtonAction = { [weak self] in
             self?.viewModel.playNextSong()
         }
+    }
+    
+    private func setupViewModel(){
+        viewModel.onPlayNextSong = { [weak self] isEnabled in
+            DispatchQueue.main.async {
+                self?.playerButtonsView.forwardButton.isEnabled = isEnabled
+            }
+            
+        }
+        
+        viewModel.onPlayPreviousSong = {[weak self] isEnabled in
+            DispatchQueue.main.async {
+                self?.playerButtonsView.backwardButton.isEnabled = isEnabled
+            }
+            
+        }
+        
+        viewModel.onPlayPauseSong = {[weak self] isPlaying in
+            DispatchQueue.main.async {
+                let buttonImageName = isPlaying ? "circle.fill.play" : "circle.fill.pause"
+                self?.playerButtonsView.playButton.setImage(UIImage(named: buttonImageName), for: .normal)
+            }
+        }
+        
+        viewModel.onPlaybackTimeChange = { [weak self] time in
+            self?.timelineSlider.value = time
+            //self?.timeLabel.text = time
+        }
+
+        viewModel.onDurationChange = { [weak self] duration in
+            self?.timelineSlider.maximumValue = duration
+            //self?.durationLabel.text = duration
+
+        }
+
     }
 }
 
