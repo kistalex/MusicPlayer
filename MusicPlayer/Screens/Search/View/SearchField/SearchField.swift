@@ -29,5 +29,9 @@ class SearchField: UITextField {
         leftView = searchIcon
         leftViewMode = .always
         placeholder = "Поиск"
+        autocorrectionType = .no
+        autocapitalizationType = .none
+        returnKeyType = .search
+
     }
 }

@@ -15,7 +15,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        title = ""
+        title = "Поиск трека"
         setupUI()
         bindViewModel()
     }
@@ -40,6 +40,7 @@ final class SearchViewController: UIViewController {
     private func setupUI(){
         setupSearchField()
         setupTableView()
+        setupActivityIndicator()
     }
     
     private func setupSearchField(){
@@ -55,7 +56,10 @@ final class SearchViewController: UIViewController {
     private func setupTableView(){
         songsTableView.register(SongCell.self, forCellReuseIdentifier: "\(SongCell.self)")
         view.addSubview(songsTableView)
-        
+        songsTableView.alpha = 0
+        songsTableView.isHidden = true
+
+
         songsTableView.snp.makeConstraints { make in
             make.top.equalTo(searchField.snp.bottom).offset(Constants.songsTableViewTopPadding)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(Constants.viewHorizontalPadding)
@@ -65,8 +69,35 @@ final class SearchViewController: UIViewController {
         songsTableView.delegate = self
         songsTableView.dataSource = self
     }
-    
+
+    private func setupActivityIndicator(){
+        view.addSubview(activityIndicator)
+
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+
     private func bindViewModel(){
+        viewModel.isLoading.bind { [weak self] isLoading in
+            guard let isLoading = isLoading else {
+                return
+            }
+            DispatchQueue.main.async {
+                if isLoading {
+                    self?.activityIndicator.startAnimating()
+                    self?.songsTableView.isHidden = true
+
+                } else {
+                    self?.activityIndicator.stopAnimating()
+                    self?.songsTableView.isHidden = false
+                    UIView.animate(withDuration: 3) {
+                        self?.songsTableView.alpha = 1
+                    }
+                }
+            }
+        }
+
 
         viewModel.songs.bind { [weak self] songs  in
             guard let self = self, let songs = songs else {

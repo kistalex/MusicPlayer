@@ -30,6 +30,7 @@ class SearchViewModel {
         if isLoading.value ?? true{
             return
         }
+        isLoading.value = true
         apiManager.fetchDataFromAPI(with: text) { [weak self] result in
             self?.isLoading.value = false
             switch result {
