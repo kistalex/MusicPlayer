@@ -38,8 +38,10 @@ final class ApiManager {
             
             do {
                 let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let responseData = try decoder.decode(SearchResult.self, from: data)
                 completion(.success(responseData))
+                print("Response Data: \(responseData.results.first)")
             } catch {
                 completion(Result.failure(.canNotParseData))
             }

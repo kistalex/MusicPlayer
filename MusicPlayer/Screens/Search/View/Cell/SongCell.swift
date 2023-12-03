@@ -42,7 +42,6 @@ final class SongCell: UITableViewCell {
         static let settingsImageSize: CGFloat = 20
     }
     
-    private let networkService = NetworkService()
     
     private let songImageView = UIImageView(contentMode: .scaleAspectFit)
     
