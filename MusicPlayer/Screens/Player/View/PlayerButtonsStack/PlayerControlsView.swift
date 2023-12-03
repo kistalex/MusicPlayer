@@ -49,13 +49,13 @@ class PlayerButtonsView: UIView {
     
     private func configureButtons() {
         backwardButton.setImage(UIImage(named: "backward"), for: .normal)
-        backwardButton.tintColor = .white
+        backwardButton.tintColor = .label
         
         playButton.setImage(UIImage(named: "circle.fill.play"), for: .normal)
-        playButton.tintColor = .white
+        playButton.tintColor = .label
         
         forwardButton.setImage(UIImage(named: "forward"), for: .normal)
-        forwardButton.tintColor = .white
+        forwardButton.tintColor = .label
         
         buttonsStackView.addArrangedSubview(backwardButton)
         buttonsStackView.addArrangedSubview(playButton)

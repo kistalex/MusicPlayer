@@ -43,11 +43,11 @@ class SongSettingsView: UIView {
     
     private func configureButtons() {
         shareButton.setImage(UIImage(named: "share"), for: .normal)
-        shareButton.tintColor = .white
+        shareButton.tintColor = .label
         shareButton.alpha = 0.8
         
         settingsButton.setImage(UIImage(named: "three-dots"), for: .normal)
-        settingsButton.tintColor = .white
+        settingsButton.tintColor = .label
         settingsButton.alpha = 0.8
         
         stackView.addArrangedSubview(shareButton)

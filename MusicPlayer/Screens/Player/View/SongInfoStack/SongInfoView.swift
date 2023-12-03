@@ -58,8 +58,8 @@ class SongInfoView: UIView {
     }
     
     private func configureLabels() {
-        artistNameLabel.textColor = .white
-        songNameLabel.textColor = .white
+        artistNameLabel.textColor = .label
+        songNameLabel.textColor = .label
         
         artistNameLabel.alpha = 0.7
         songNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)

@@ -1,0 +1,26 @@
+{
+    "resultCount": 3,
+    "results": [
+        {
+            "artistName": "Beyoncé",
+            "trackName": "Mine (feat. Drake)",
+            "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6e/4e/f0/6e4ef04c-1ad4-9636-ed44-8d7d49a00ca9/mzaf_4703749478133662108.plus.aac.p.m4a",
+            "artworkUrl100": "https://is4-ssl.mzstatic.com/image/thumb/Features4/v4/dc/ca/29/dcca295f-851e-5faf-a3b4-030965fa80f2/dj.jyrlgxlq.jpg/100x100bb.jpg",
+            "isStreamable": false
+        },
+        {
+            "artistName": "Lor Sosa & Soulja Boy Tell 'Em",
+            "trackName": "Drake",
+            "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6e/4e/f0/6e4ef04c-1ad4-9636-ed44-8d7d49a00ca9/mzaf_4703749478133662108.plus.aac.p.m4a",
+            "artworkUrl100": "https://is2-ssl.mzstatic.com/image/thumb/Music125/v4/c0/19/f0/c019f005-16e0-b36e-a169-d742a35495d5/21570.jpg/100x100bb.jpg",
+            "isStreamable": true
+        },
+        {
+            "artistName": "Tempelhof",
+            "trackName": "Drake",
+            "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6e/4e/f0/6e4ef04c-1ad4-9636-ed44-8d7d49a00ca9/mzaf_4703749478133662108.plus.aac.p.m4a",
+            "artworkUrl100": "https://is3-ssl.mzstatic.com/image/thumb/Music/v4/93/ed/f7/93edf7ef-304e-2d77-f5c2-db027c3f9af7/5053760006794_Cover.jpg/100x100bb.jpg",
+            "isStreamable": true
+        }
+    ] 
+}

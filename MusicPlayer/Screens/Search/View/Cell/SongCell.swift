@@ -24,11 +24,16 @@ final class SongCell: UITableViewCell {
     }
     
     func configure(viewModel: SongCellViewModel) {
-        self.artistNameLabel.text = viewModel.artistName
-        self.songNameLabel.text = viewModel.trackName
-        self.songImageView.sd_setImage(with: viewModel.trackCover)
+       artistNameLabel.text = viewModel.artistName
+       songNameLabel.text = viewModel.trackName
+       songImageView.sd_setImage(with: viewModel.trackCover)
     }
-
+    
+    override func prepareForReuse() {
+        artistNameLabel.text = nil
+        songNameLabel.text = nil
+        songImageView.sd_setImage(with: nil)
+    }
     
     //MARK: - Private properties
     private enum Constants{

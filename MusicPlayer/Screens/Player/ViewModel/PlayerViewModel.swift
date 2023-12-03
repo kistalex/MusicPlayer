@@ -12,27 +12,27 @@
 import Foundation
 import AVFoundation
 
-
-
 protocol PlayerViewModelDelegate: AnyObject {
     func trackDidUpdate(_ viewModel: PlayerViewModel, track: SongInfo)
 }
 
-class PlayerViewModel{
+class PlayerViewModel {
+
+    weak var delegate: PlayerViewModelDelegate?
 
     private var audioPlayer: AVPlayer?
     private var currentPlayerItem: AVPlayerItem?
     private var songs: [SongInfo]
     private var currentIndex: Int
-    weak var delegate: PlayerViewModelDelegate?
-    
+    private var currentTime: Float = 0.0
+
     var onPlayNextSong: ((Bool) -> Void)?
     var onPlayPreviousSong: ((Bool) -> Void)?
     var onPlayPauseSong: ((Bool) -> Void)?
 
     var onPlaybackTimeChange: ((Float) -> Void)?
     var onDurationChange: ((Float) -> Void)?
-    
+
     var id: Int {
         songs[currentIndex].trackID
     }
@@ -54,7 +54,7 @@ class PlayerViewModel{
         self.currentIndex = startIndex
     }
 
-    func playPreviousSong()  {
+    func playPreviousSong() {
         if currentIndex > 0 {
             stopMusic()
             currentIndex -= 1
@@ -62,10 +62,24 @@ class PlayerViewModel{
             onPlayNextSong?(true)
             onPlayPreviousSong?(true)
         }
-        
-        if currentIndex <= 0{
+
+        if currentIndex <= 0 {
             onPlayPreviousSong?(false)
             print(" назад ")
+        }
+    }
+
+    func playNextSong() {
+        if currentIndex < songs.count - 1 {
+            stopMusic()
+            currentIndex += 1
+            playSong(at: currentIndex)
+            onPlayNextSong?(true)
+            onPlayPreviousSong?(true)
+        }
+
+        if currentIndex >= songs.count - 1 {
+            onPlayNextSong?(false)
         }
     }
 
@@ -75,6 +89,10 @@ class PlayerViewModel{
         }
 
         if isPlayerActive() {
+            if currentIndex != index {
+                currentTime = Float(audioPlayer?.currentTime().seconds ?? 0.0)
+            }
+
             audioPlayer?.pause()
             onPlayPauseSong?(true)
         } else {
@@ -84,8 +102,15 @@ class PlayerViewModel{
 
         delegate?.trackDidUpdate(self, track: songs[currentIndex])
     }
-    
-    
+
+    func stopMusic() {
+        audioPlayer?.pause()
+    }
+
+    func seek(to seconds: Float) {
+        let targetTime: CMTime = CMTimeMake(value: Int64(seconds), timescale: 1)
+        audioPlayer?.seek(to: targetTime)
+    }
 
     private func isPlayerActive() -> Bool {
         if let player = audioPlayer, player.timeControlStatus == .playing {
@@ -93,7 +118,7 @@ class PlayerViewModel{
         }
         return false
     }
-    
+
     private func playNewItem(from url: URL) {
         let playerItem = AVPlayerItem(url: url)
         audioPlayer = AVPlayer(playerItem: playerItem)
@@ -110,40 +135,20 @@ class PlayerViewModel{
 
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
 
+        if currentTime > 0.0 {
+            let targetTime = CMTimeMakeWithSeconds(Float64(currentTime), preferredTimescale: 1)
+            audioPlayer?.seek(to: targetTime, toleranceBefore: .zero, toleranceAfter: .zero)
+            currentTime = 0.0
+        }
+
         audioPlayer?.play()
     }
-
 
     @objc private func playerDidFinishPlaying() {
         playNextSong()
     }
-    
-    func playNextSong() {
-        if currentIndex < songs.count - 1 {
-            stopMusic()
-            currentIndex += 1
-            playSong(at: currentIndex)
-            onPlayNextSong?(true)
-            onPlayPreviousSong?(true)
-        }
-        
-        if currentIndex >= songs.count - 1{
-            onPlayNextSong?(false)
-            print(" вперед ")
 
-        }
-    }
-
-    func stopMusic(){
-        audioPlayer?.pause()
-    }
-    
-    func seek(to seconds: Float) {
-        let targetTime: CMTime = CMTimeMake(value: Int64(seconds), timescale: 1)
-        audioPlayer?.seek(to: targetTime)
-    }
-
-    private func createURL(url: String) -> URL?{
+    private func createURL(url: String) -> URL? {
         URL(string: url)
     }
 }

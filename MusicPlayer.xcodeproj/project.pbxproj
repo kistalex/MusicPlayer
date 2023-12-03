@@ -31,6 +31,7 @@
 		463733D22A8A66E300156650 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733D12A8A66E300156650 /* PlayerViewController.swift */; };
 		463733D42A8A80CB00156650 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733D32A8A80CB00156650 /* ApiManager.swift */; };
 		463733D82A8E549F00156650 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463733D72A8E549F00156650 /* SearchViewModel.swift */; };
+		46D2AB342B1CFEF800D73BB4 /* Extension+Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D2AB332B1CFEF800D73BB4 /* Extension+Float.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		463733D12A8A66E300156650 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		463733D32A8A80CB00156650 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		463733D72A8E549F00156650 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		46D2AB332B1CFEF800D73BB4 /* Extension+Float.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Float.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				4628FA5F2A8FB3B400D581A9 /* Extension+UIImageView.swift */,
 				4628FA652A929F6400D581A9 /* Extension+UIButton.swift */,
+				46D2AB332B1CFEF800D73BB4 /* Extension+Float.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				4628FA662A929F6400D581A9 /* Extension+UIButton.swift in Sources */,
 				4628FA752A95080F00D581A9 /* SongInfoView.swift in Sources */,
 				463733C42A89551D00156650 /* DataService.swift in Sources */,
+				46D2AB342B1CFEF800D73BB4 /* Extension+Float.swift in Sources */,
 				4628FA9F2A98D49200D581A9 /* PlayerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

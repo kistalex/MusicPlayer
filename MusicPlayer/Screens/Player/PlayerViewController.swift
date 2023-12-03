@@ -13,7 +13,6 @@ import SDWebImage
 
 class PlayerViewController: UIViewController {
     
-    
     //MARK: - Private properties
     private let coverImageView = UIImageView()
     
@@ -27,8 +26,24 @@ class PlayerViewController: UIViewController {
     
     private let viewModel: PlayerViewModel
     
+    private var elapsedLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.text = "0:00"
+        label.textColor = .label
+        return label
+    }()
+
+    private var remainingLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .right
+        label.text = "0:00"
+        label.textColor = .label
+        return label
+    }()
+
     private enum Constants {
-        static let backgroundColor = UIColor(named: "playerBgColor")
+        static let backgroundColor: UIColor = .systemBackground
     }
     
     init(viewModel: PlayerViewModel) {
@@ -38,7 +53,7 @@ class PlayerViewController: UIViewController {
     
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("")
     }
     
     //MARK: - VC Lifecycle
@@ -59,7 +74,12 @@ class PlayerViewController: UIViewController {
         super.viewWillDisappear(animated)
         viewModel.stopMusic()
     }
-    
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        coverImageView.layer.cornerRadius = 10
+    }
+
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
         return .portrait
     }
@@ -73,13 +93,13 @@ class PlayerViewController: UIViewController {
         setupSongInfoView()
         setupSongSettingsView()
         setupTimelineSlider()
+        setupTimelineLabels()
         setupPlayerButtonsView()
         setupViewModel()
     }
     
     private func setupCoverImageView(){
         view.addSubview(coverImageView)
-        coverImageView.backgroundColor = .lightGray
         coverImageView.layer.cornerRadius = 15
         
         coverImageView.snp.makeConstraints { make in
@@ -127,8 +147,22 @@ class PlayerViewController: UIViewController {
         
         timelineSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
     }
-    
-    @objc func sliderValueChanged() {
+
+    private func setupTimelineLabels() {
+        view.addSubview(elapsedLabel)
+        elapsedLabel.snp.makeConstraints { make in
+            make.top.equalTo(timelineSlider.snp.bottom).offset(20)
+            make.leading.equalTo(timelineSlider.snp.leading)
+        }
+
+        view.addSubview(remainingLabel)
+        remainingLabel.snp.makeConstraints { make in
+            make.top.equalTo(timelineSlider.snp.bottom).offset(20)
+            make.trailing.equalTo(timelineSlider.snp.trailing)
+        }
+    }
+
+    @objc private func sliderValueChanged() {
         viewModel.seek(to: timelineSlider.value)
     }
     
@@ -177,16 +211,20 @@ class PlayerViewController: UIViewController {
         }
         
         viewModel.onPlaybackTimeChange = { [weak self] time in
-            self?.timelineSlider.value = time
-            //self?.timeLabel.text = time
+            DispatchQueue.main.async {
+                self?.timelineSlider.value = time
+                self?.elapsedLabel.text = time.timeToString()
+
+                if let duration = self?.timelineSlider.maximumValue {
+                    let remainingTime = duration - time
+                    self?.remainingLabel.text = "-" + (remainingTime.timeToString())
+                }
+            }
         }
 
         viewModel.onDurationChange = { [weak self] duration in
             self?.timelineSlider.maximumValue = duration
-            //self?.durationLabel.text = duration
-
         }
-
     }
 }
 
