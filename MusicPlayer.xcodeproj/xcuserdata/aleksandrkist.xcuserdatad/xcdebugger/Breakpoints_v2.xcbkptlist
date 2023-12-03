@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "5C5B032C-C1EA-4B5A-B369-01217885BD16"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A8D51BF1-0EE6-479C-B182-BC486489D895"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusicPlayer/Screens/Search/View/SearchViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "textFieldShouldReturn(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A8D51BF1-0EE6-479C-B182-BC486489D895 - 4250c40c2fec96bc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusicPlayer.SearchViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "MusicPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aleksandrkist/Desktop/Study/Course/MusicPlayer/MusicPlayer/Screens/Search/View/SearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "884">
+               </Location>
+               <Location
+                  uuid = "A8D51BF1-0EE6-479C-B182-BC486489D895 - 4250c40c2fec96bc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusicPlayer.SearchViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "MusicPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aleksandrkist/Desktop/Study/Course/MusicPlayer/MusicPlayer/Screens/Search/View/SearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "660">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "867D97F0-0974-4F7B-B718-9945E532BB0C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusicPlayer/Screens/Player/PlayerViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "setupPlayerButtonsView()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "867D97F0-0974-4F7B-B718-9945E532BB0C - 3e72fc5b9ea40217"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusicPlayer.PlayerViewController.setupButtonAction() -&gt; ()"
+                  moduleName = "MusicPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aleksandrkist/Desktop/Study/Course/MusicPlayer/MusicPlayer/Screens/Player/PlayerViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "236">
+               </Location>
+               <Location
+                  uuid = "867D97F0-0974-4F7B-B718-9945E532BB0C - 821cb3a6c6bbe80a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in MusicPlayer.PlayerViewController.setupButtonAction() -&gt; ()"
+                  moduleName = "MusicPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aleksandrkist/Desktop/Study/Course/MusicPlayer/MusicPlayer/Screens/Player/PlayerViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

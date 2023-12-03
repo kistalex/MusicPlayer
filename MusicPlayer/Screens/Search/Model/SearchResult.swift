@@ -9,22 +9,25 @@
 
 import Foundation
 
-// MARK: - Response
-struct Response: Codable {
+struct SearchResult: Codable {
     let resultCount: Int
     let results: [SongInfo]
 }
 
-// MARK: - Result
+
 struct SongInfo: Codable {
+    let trackID: Int
     let artistName, trackName: String
     let previewURL: String
     let artworkUrl100: String
-    let isStreamable: Bool
 
     enum CodingKeys: String, CodingKey {
-        case artistName, trackName
+        case trackID = "trackId"
+        case artistName = "artistName"
+        case trackName = "trackName"
         case previewURL = "previewUrl"
-        case artworkUrl100, isStreamable
+        case artworkUrl100 = "artworkUrl100"
     }
 }
+
+

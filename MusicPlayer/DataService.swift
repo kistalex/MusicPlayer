@@ -10,13 +10,13 @@
 import Foundation
 
 class DataService {
-    func fetchBannerData(fromFileNamed fileName: String, completion: @escaping (Result<Response, Error>) -> Void) {
+    func fetchBannerData(fromFileNamed fileName: String, completion: @escaping (Result<SearchResult, Error>) -> Void) {
         if let path = Bundle.main.path(forResource: fileName, ofType: "json") {
             do {
                 let jsonData = try Data(contentsOf: URL(fileURLWithPath: path))
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let songInfo = try decoder.decode(Response.self, from: jsonData)
+                let songInfo = try decoder.decode(SearchResult.self, from: jsonData)
                 completion(.success(songInfo))
             } catch {
                 completion(.failure(error))
